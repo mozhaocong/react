@@ -8,6 +8,6 @@ const { merge } = require("webpack-merge");
 const webpackConfigBase = require("./webpack.base.conf");
 const options = merge(webpackConfigBase, {
   mode: "development",
-  devServer: { open: true, port: 3000, hot: true },
+  devServer: { open: false, port: 3000, hot: true, historyApiFallback: true },
 });
 module.exports = options;

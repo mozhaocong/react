@@ -15,7 +15,8 @@ module.exports = {
     path: path.join(__dirname, '../dist'),
     filename: 'static/js/[name]_[contenthash].js',
     pathinfo: false,
-    clean: true
+    clean: true,
+    publicPath: "/",
   },
   devServer: {
     port: 3000,

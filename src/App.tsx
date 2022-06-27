@@ -1,33 +1,35 @@
 import React from 'react'
-import Home from './home/index.js'
-import Other from './other'
-import routes from '@/routes/index.js'
+import routes from '@/routes'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Interceptor } from '@/routes/test.js'
-
+import { isTrue } from '@/utils'
 const App = () => {
-  console.log('routes', routes)
   function setRouter() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return routes.map((item, index) => {
+    return routes.map((item: any, index: any) => {
       return (
         <Route
           key={index}
           path={item.path}
           element={<Interceptor route={item} />}
-        />
+        >
+          {isTrue(item.children) &&
+            item.children.map((res: any, childIndex: number) => {
+              return (
+                <Route
+                  path={res.path}
+                  key={childIndex}
+                  element={<Interceptor route={res} />}
+                />
+              )
+            })}
+        </Route>
       )
     })
   }
 
   return (
     <BrowserRouter>
-      <Routes>
-        {setRouter()}
-        {/*<Route path="/" element={<Home />} />*/}
-        {/*<Route path="/other" element={<Other />} />*/}
-      </Routes>
+      <Routes>{setRouter()}</Routes>
     </BrowserRouter>
   )
 }
