@@ -19,6 +19,14 @@ import {
   isTrue
 } from './model/public/typeJudgment'
 
+import {
+  messageError,
+  messageSuccess,
+  messageWarning
+} from './model/thirdParty/message'
+
+import { mockDataSource } from './model/mock/index.js'
+
 export {
   throttle,
   debounce,
@@ -36,5 +44,9 @@ export {
   isFunction,
   deepClone,
   isString,
-  isNumber
+  isNumber,
+  messageError,
+  messageSuccess,
+  messageWarning,
+  mockDataSource
 }

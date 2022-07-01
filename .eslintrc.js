@@ -27,10 +27,13 @@ module.exports = {
   plugins: ['react', '@typescript-eslint'],
   rules: {
     camelcase: 'off',
+    'react/prop-types': 0,
+    'react/display-name': 0,
     'react/jsx-uses-react': 2,
-    'react/react-in-jsx-scope': 2,
+    'react/react-in-jsx-scope': 0,
     '@typescript-eslint/camelcase': ['off', { properties: 'always' }],
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'prettier/prettier': [
       'error',
