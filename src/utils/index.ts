@@ -8,7 +8,8 @@ import {
   setArrayData,
   setObjetToObject,
   setArrayFilter,
-  deepClone
+  deepClone,
+  arrayGetData
 } from './model/public/data'
 import {
   isString,
@@ -28,6 +29,7 @@ import {
 import { mockDataSource } from './model/mock/index.js'
 
 export {
+  arrayGetData,
   throttle,
   debounce,
   ArrayObjectIncludes,

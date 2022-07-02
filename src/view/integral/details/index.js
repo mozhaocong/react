@@ -1,5 +1,5 @@
 import React, { createRef, useEffect, useState } from 'react'
-import { HtForm, HtSearch } from '@/components'
+import { DecorationOperation, HtForm, HtSearch } from '@/components'
 const { useRequest } = HtSearch
 import { FromData, SearchData } from '@/view/integral/details/utils'
 import { Button } from 'antd'
@@ -40,7 +40,8 @@ const View = (props) => {
       {/*  }}*/}
       {/*/>*/}
 
-      <GoodsList />
+      {/*<GoodsList />*/}
+      <DecorationOperation />
     </div>
   )
 }

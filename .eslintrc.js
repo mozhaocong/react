@@ -28,7 +28,7 @@ module.exports = {
   rules: {
     camelcase: 'off',
     'react/prop-types': 0,
-    'react/display-name': 0,
+    // 'react/display-name': 0,
     'react/jsx-uses-react': 2,
     'react/react-in-jsx-scope': 0,
     '@typescript-eslint/camelcase': ['off', { properties: 'always' }],

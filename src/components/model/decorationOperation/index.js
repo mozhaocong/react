@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import { Button, Col, Input, Row } from 'antd'
-import { m_diy_link_type } from '@/utils/util_data'
 import Modal from './modal'
-import { arrayGetData } from '@/htwig/utils/data'
-import { isTrue } from '@/htwig/utils'
-import { HtSelect } from '@/htwig/components'
+import { isTrue, arrayGetData } from '@/utils'
+import { HtSelect } from '@/components'
 import {
   inputEnter,
   linkMapData,
   modalList,
-  noInput
-} from '@/htwig/components/decorationOperation/utils'
+  noInput,
+  selectOptions
+} from './utils'
 
 export default class decorationOperation extends Component {
   constructor(props) {
@@ -84,7 +83,7 @@ export default class decorationOperation extends Component {
   getInput() {
     const linkType = this.getLinkType
     const linkValue = this.getLinkValue
-    const typeName = arrayGetData(m_diy_link_type(), { key: linkType })
+    const typeName = arrayGetData(selectOptions, { key: linkType })
     const { disabled = false } = this.props
     if (!isTrue(linkType)) return
     if (noInput.includes(linkType)) return
@@ -170,7 +169,7 @@ export default class decorationOperation extends Component {
               disabled={disabled}
               value={linkType}
               onChange={this.selectChang}
-              options={m_diy_link_type()}
+              options={selectOptions}
               typeTransform={{ value: 'key', label: 'name' }}
             />
           </Col>

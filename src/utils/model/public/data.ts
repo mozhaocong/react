@@ -1,6 +1,20 @@
 import { isNil } from 'ramda';
 import { isTrue } from './typeJudgment';
 
+
+export function arrayGetData(sourceData = [], getData = {}) {
+  return sourceData.filter((item) => {
+    let returnData = true
+    for (const key in getData) {
+      // @ts-ignore
+      if (getData[key] !== item[key]) {
+        returnData = false
+      }
+    }
+    return returnData
+  })
+}
+
 export function ObjectToArray(object: ObjectMap) {
   return Object.keys(object).map(item => {
     return { value: item, label: object[item] };
