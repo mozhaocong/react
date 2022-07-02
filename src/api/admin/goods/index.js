@@ -1,4 +1,5 @@
 import { get } from '@/http'
+import { apiUrl } from '@/api'
 export function goodsList(data = {}, options = {}) {
-  return get('/v3/goods/admin/goods/list', data, options)
+  return get(apiUrl + '/v3/goods/admin/goods/list', data, options)
 }

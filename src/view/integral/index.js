@@ -3,6 +3,7 @@ import { TableData } from './utils'
 import { Table } from 'antd'
 import { mockDataSource } from '@/utils'
 import { useNavigate, useLocation } from 'react-router-dom'
+
 const ViewTest = (props) => {
   let navigate = useNavigate()
   let location = useLocation()

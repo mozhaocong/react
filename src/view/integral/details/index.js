@@ -6,6 +6,8 @@ import { Button } from 'antd'
 import { goodsList } from '@/api/admin/goods'
 import Pagination from '@/components/model/Search/model/pagination'
 
+import { ListSearch } from '@/components/index.js'
+const { GoodsList } = ListSearch
 const View = (props) => {
   function showClick(item) {
     console.log(item)
@@ -23,27 +25,22 @@ const View = (props) => {
 
   return (
     <div>
-      <Button
-        onClick={() => {
-          run()
-        }}
-      >
-        111
-      </Button>
-      <HtSearch
-        columns={searchColumns}
-        onSearch={(item) => {
-          console.log(item)
-          run(item)
-        }}
-      />
-      <Pagination />
+      {/*<HtSearch*/}
+      {/*  columns={searchColumns}*/}
+      {/*  onSearch={(item) => {*/}
+      {/*    console.log(item)*/}
+      {/*    run(item)*/}
+      {/*  }}*/}
+      {/*/>*/}
+      {/*<Pagination />*/}
       {/*<HtForm*/}
       {/*  columns={columns}*/}
       {/*  propsForm={(item) => {*/}
       {/*    formRef.current = item*/}
       {/*  }}*/}
       {/*/>*/}
+
+      <GoodsList />
     </div>
   )
 }

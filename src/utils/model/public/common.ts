@@ -1,3 +1,5 @@
+import {isTrue} from "@/utils";
+
 export interface DebouncedFunc<T extends (...args: any[]) => any> {
   (...args: Parameters<T>): ReturnType<T> | undefined
 }
@@ -27,4 +29,21 @@ export function debounce<T extends(...arg: any[]) => any>(fn: T, wait = 500) {
     }, wait);
   };
 }
+
+
+//table 序号
+export const serialNumber = (
+  { index }: { index: number },
+  data: { pageSize:number; current:number }
+) => {
+  let currentPageSize = 0
+  if (isTrue(data)) {
+    currentPageSize = ((data?.current || 0) - 1) * (data?.pageSize|| 0)
+    if (currentPageSize < 0) {
+      currentPageSize = 0
+    }
+  }
+  return index + 1 + currentPageSize
+}
+
 

@@ -39,51 +39,54 @@ class HtFormComponent extends React.Component {
       columns = []
     }
     return (
-      <Spin spinning={loading ?? false}>
-        <Row gutter={[16, 16]} style={{ margin: 0 }}>
-          <Form
-            {...formItemLayout}
-            onSubmit={this.handleSubmit}
-            id={fId || 'fromID'}
-          >
-            {columns.map((item, index) => {
-              if (item.display) {
-                if (item.display() === false) {
-                  return false
+      <div style={this.props.style}>
+        <Spin spinning={loading ?? false}>
+          <Row style={{ margin: 0 }}>
+            <Form
+              {...formItemLayout}
+              onSubmit={this.handleSubmit}
+              id={fId || 'fromID'}
+            >
+              {columns.map((item, index) => {
+                if (item.display) {
+                  if (item.display() === false) {
+                    return false
+                  }
                 }
-              }
-              if (item.render) {
-                return item.render()
-              }
-              return (
-                <Col span={col} key={index}>
-                  <Form.Item
-                    extra={item.extra}
-                    key={index}
-                    labelAlign={item.labelAlign ?? labelAlign}
-                    className="htFrom"
-                    label={item.label}
-                    labelCol={item.labelCol ?? formItemLayout.labelCol}
-                    wrapperCol={item.wrapperCol || formItemLayout.wrapperCol}
-                  >
-                    {getFieldDecorator(item.name, {
-                      ...(item.fieldDecoratorProps || {}),
-                      initialValue: item.initialValue,
-                      rules: [...(item.rules || [])]
-                    })(
-                      item.component ? (
-                        item.component()
-                      ) : (
-                        <Input {...item.props} />
-                      )
-                    )}
-                  </Form.Item>
-                </Col>
-              )
-            })}
-          </Form>
-        </Row>
-      </Spin>
+                if (item.render) {
+                  return item.render()
+                }
+                return (
+                  <Col span={item.col ?? col} key={index}>
+                    <Form.Item
+                      style={this.props.formItem || {}}
+                      extra={item.extra}
+                      key={index}
+                      labelAlign={item.labelAlign ?? labelAlign}
+                      className="htFrom"
+                      label={item.label}
+                      labelCol={item.labelCol ?? formItemLayout.labelCol}
+                      wrapperCol={item.wrapperCol || formItemLayout.wrapperCol}
+                    >
+                      {getFieldDecorator(item.name, {
+                        ...(item.fieldDecoratorProps || {}),
+                        initialValue: item.initialValue,
+                        rules: [...(item.rules || [])]
+                      })(
+                        item.component ? (
+                          item.component()
+                        ) : (
+                          <Input {...item.props} />
+                        )
+                      )}
+                    </Form.Item>
+                  </Col>
+                )
+              })}
+            </Form>
+          </Row>
+        </Spin>
+      </div>
     )
   }
 }
