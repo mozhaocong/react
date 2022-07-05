@@ -1,9 +1,8 @@
-import HtForm from './model/form'
-import FormConfig from '@/components/model/FormConfig'
-
-export { HtForm, FormConfig }
-
 export { default as HtSearch } from './model/Search'
 export { default as Image } from './model/Image'
-export { default as HtSelect } from './model/select'
-export { default as DecorationOperation } from './model/decorationOperation'
+export { default as HtSelect } from './model/Select'
+export { default as DecorationOperation } from './model/DecorationOperation'
+export { default as FormConfig } from './model/FormConfig'
+export { default as FormRadio } from './model/FormRadio'
+export { default as HtForm } from './model/Form'
+export { default as UploadImg } from './model/UploadImg/index.js'

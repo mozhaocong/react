@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { HtSearch } from '@/components'
+import { HtSearch, Image } from '@/components'
 const { useRequest } = HtSearch
 import { Table } from 'antd'
+import { goodsList } from '@/api/admin/goods'
 import { serialNumber } from '@/utils/model/public/common'
-import { mobileDecoList } from '@/api/admin/system'
 
 const searchData = [
   {
-    label: '专题名称',
-    name: 'name'
+    label: '商品名称',
+    name: 'goodsName'
   }
 ]
 
@@ -17,32 +17,38 @@ class TableData {
     this.data = [
       {
         title: '序号',
-        dataIndex: 'decoId',
+        dataIndex: 'name',
         align: 'center',
         render: (text, record, index) => {
           return serialNumber({ index }, item.getSerialNumberData())
         }
       },
-      { title: '专题名称', dataIndex: 'name', align: 'center' },
-      { title: '创建时间', dataIndex: 'createTime', align: 'center' },
-      { title: '修改时间', dataIndex: 'updateTime', align: 'center' }
+      {
+        title: '商品图片',
+        dataIndex: 'mainImage',
+        align: 'center',
+        render: (text) => {
+          return <Image style={{ width: '80px', height: '80px' }} url={text} />
+        }
+      },
+      { title: '商品名称', dataIndex: 'goodsName', align: 'center' },
+      { title: '商品价格(美元)', dataIndex: 'goodsPrice', align: 'center' },
+      { title: '销量', dataIndex: 'actualSales', align: 'center' }
     ]
   }
 }
 
-const rowKey = 'decoId'
+const rowKey = 'goodsId'
 let paginationData = {
   pageSize: '',
   current: ''
 }
-const defaultParams = { type: 'topic' }
 const View = (props) => {
-  const { run, Pagination, loading } = useRequest(mobileDecoList, {
+  const { run, Pagination, loading } = useRequest(goodsList, {
     onSuccess(item) {
       paginationData = item?.data?.pagination
       setDataSource(item?.data?.list || [])
-    },
-    defaultParams
+    }
   })
 
   function getSerialNumberData() {
@@ -68,7 +74,6 @@ const View = (props) => {
       />
       <Table
         className="list-table"
-        style={{ height: '100%', flex: '1', overflow: 'auto' }}
         rowKey={rowKey}
         pagination={false}
         columns={columns}
@@ -82,7 +87,7 @@ const View = (props) => {
             onClick: () => {
               setChecked(record[rowKey])
               if (props.onClick) {
-                props.onClick(record)
+                props.onClick(record, rowKey)
               }
             } // 点击行
           }

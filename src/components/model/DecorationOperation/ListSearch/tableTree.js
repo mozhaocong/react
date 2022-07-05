@@ -52,7 +52,7 @@ const View = (props) => {
               onClick: () => {
                 setChecked(record[rowKey])
                 if (props.onClick) {
-                  props.onClick(record)
+                  props.onClick(record, rowKey)
                 }
               } // 点击行
             }

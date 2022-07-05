@@ -28,6 +28,7 @@ import {
 
 import { mockDataSource } from './model/mock/index.js'
 
+import { getToken } from './model/admin/utils.js'
 export {
   arrayGetData,
   throttle,
@@ -50,5 +51,6 @@ export {
   messageError,
   messageSuccess,
   messageWarning,
-  mockDataSource
+  mockDataSource,
+  getToken
 }

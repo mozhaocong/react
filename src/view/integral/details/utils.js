@@ -1,5 +1,11 @@
 import React from 'react'
-import { FormConfig } from '@/components'
+import {
+  DecorationOperation,
+  FormConfig,
+  FormRadio,
+  UploadImg
+} from '@/components'
+import { Switch } from 'antd'
 export class FromData {
   constructor(item) {
     this.data = [
@@ -32,11 +38,39 @@ export class FromData {
         }
       },
       { label: '行为名称', name: 'null3' },
-      { label: '显示图标', name: 'null4' },
-      { label: '链接', name: 'null5' },
+      {
+        label: '显示图标',
+        name: 'null4',
+        component() {
+          return <UploadImg />
+        }
+      },
+      {
+        label: '',
+        labelCol: { span: 0 },
+        wrapperCol: { span: 24 },
+        col: 24,
+        name: 'null5',
+        component() {
+          return <DecorationOperation labelCol={8} wrapperCol={8} />
+        }
+      },
       { label: '排序', name: 'null6' },
-      { label: '积分上限类型', name: 'null8' },
-      { label: '是否显示', name: 'null9' }
+      {
+        label: '积分上限类型',
+        name: 'null8',
+        component() {
+          return <FormRadio prop="integralLimit" />
+        }
+      },
+      {
+        label: '是否显示',
+        name: 'null9',
+        fieldDecoratorProps: { valuePropName: 'checked' },
+        component() {
+          return <Switch />
+        }
+      }
     ]
   }
 }

@@ -47,7 +47,6 @@ export default class decorationOperation extends Component {
   }
 
   seleSku = (value) => {
-    this.sldHandleLinkCancle()
     this.propsChange({
       linkType: this.getLinkType,
       linkValue: linkMapData({

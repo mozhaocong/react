@@ -2,8 +2,7 @@ import React, { useEffect } from 'react'
 import { Modal } from 'antd'
 import ListSearch from './ListSearch/index.js'
 import { isTrue } from '@/utils'
-import TableTree from '@/components/model/decorationOperation/ListSearch/tableTree'
-const { GoodsList, MobileDeco, CateTree } = ListSearch
+const { GoodsList, MobileDeco, TableTree } = ListSearch
 const View = (props) => {
   console.log('props', props)
 
@@ -12,12 +11,16 @@ const View = (props) => {
   function getDivList() {
     switch (props.link_type) {
       case 'goods':
-        return <GoodsList />
+        return <GoodsList onClick={lickClick} />
       case 'topic':
-        return <MobileDeco />
+        return <MobileDeco onClick={lickClick} />
       case 'category':
-        return <TableTree />
+        return <TableTree onClick={lickClick} />
     }
+  }
+
+  function lickClick(item, type) {
+    console.log('item', item, type)
   }
 
   return (

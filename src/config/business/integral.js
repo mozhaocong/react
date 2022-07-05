@@ -14,5 +14,10 @@ export default {
     11: '关注YouTube',
     12: '关注Twitter',
     13: '关注PIN'
+  },
+  integralLimit: {
+    1: '单次',
+    2: '每天循环',
+    3: '按需触发'
   }
 }
