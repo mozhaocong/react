@@ -24,7 +24,7 @@ export function useRequest(request, options = {}) {
   async function run(data = {}) {
     setLoading(true)
     setParam(data)
-    const item = await request(data)
+    const item = await request({ ...(options.defaultParams || {}), ...data })
     if (item.state == 200) {
       const optionsData = { ...optionsDefData, ...options }
       let paginationReqData = {}

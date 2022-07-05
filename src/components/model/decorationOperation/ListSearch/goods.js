@@ -8,27 +8,7 @@ import { serialNumber } from '@/utils/model/public/common'
 const searchData = [
   {
     label: '商品名称',
-    name: 'integralType'
-  },
-  {
-    label: '商品名称',
-    name: 'integralType'
-  },
-  {
-    label: '商品名称',
-    name: 'integralType'
-  },
-  {
-    label: '商品名称',
-    name: 'integralType'
-  },
-  {
-    label: '商品名称',
-    name: 'integralType'
-  },
-  {
-    label: '商品名称',
-    name: 'integralType'
+    name: 'goodsName'
   }
 ]
 
@@ -48,7 +28,7 @@ class TableData {
         dataIndex: 'mainImage',
         align: 'center',
         render: (text) => {
-          return <Image style={{ width: '80px' }} url={text} />
+          return <Image style={{ width: '80px', height: '80px' }} url={text} />
         }
       },
       { title: '商品名称', dataIndex: 'goodsName', align: 'center' },
@@ -90,8 +70,10 @@ const View = (props) => {
         columns={searchColumns}
         onSearch={run}
         onClear={run}
+        col={12}
       />
       <Table
+        className="list-table"
         rowKey={rowKey}
         pagination={false}
         columns={columns}

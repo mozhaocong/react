@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Col, Input, Row } from 'antd'
-import Modal from './modal'
+import Modal from './modal.js'
 import { isTrue, arrayGetData } from '@/utils'
 import { HtSelect } from '@/components'
 import {
@@ -42,7 +42,7 @@ export default class decorationOperation extends Component {
   linkInput = (e) => {
     this.propsChange({ linkType: this.getLinkType, linkValue: e.target.value })
   }
-  sldHandleLinkCancle = () => {
+  sldHandleLinkCancel = () => {
     this.setState({ modalView: false })
   }
 
@@ -179,7 +179,7 @@ export default class decorationOperation extends Component {
           <Modal
             link_type={linkType}
             seleSku={this.seleSku}
-            sldHandleCancle={this.sldHandleLinkCancle}
+            onCancel={this.sldHandleLinkCancel}
             client={'mobile'}
           />
         )}

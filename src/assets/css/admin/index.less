@@ -10,8 +10,18 @@ body{
     height: 26px;
   }
   .select-table{
+    height: 60vh; display: flex; flex-direction: column;
+    .list-table{
+      height: 100%; flex: 1; overflow: auto
+    }
     .checked-row{
       background: #7DB4F4;
     }
+    .ant-table-row{
+      cursor: pointer;
+    }
+  }
+  .ant-modal-body{
+    padding: 10px 15px;
   }
 }

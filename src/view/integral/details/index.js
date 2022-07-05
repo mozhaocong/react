@@ -1,13 +1,10 @@
-import React, { createRef, useEffect, useState } from 'react'
-import { DecorationOperation, HtForm, HtSearch } from '@/components'
+import React, { createRef, useState } from 'react'
+import { DecorationOperation, HtSearch } from '@/components'
 const { useRequest } = HtSearch
 import { FromData, SearchData } from '@/view/integral/details/utils'
 import { Button } from 'antd'
 import { goodsList } from '@/api/admin/goods'
-import Pagination from '@/components/model/Search/model/pagination'
 
-import { ListSearch } from '@/components/index.js'
-const { GoodsList } = ListSearch
 const View = (props) => {
   function showClick(item) {
     console.log(item)
