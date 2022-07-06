@@ -1,17 +1,21 @@
 import React, { createRef, useState } from 'react'
-import { HtForm, DecorationOperation } from '@/components'
+import { HtForm } from '@/components'
 import { FromData } from './utils'
 import { Button } from 'antd'
-const { getDecorationOperationData } = DecorationOperation
+import AddGoodsList from './models/addGoodsList'
 
 const View = (props) => {
   function handleSubmit(item) {
     console.log(item)
-    const value = getDecorationOperationData(item)
     console.log(value)
   }
   const formRef = createRef()
-  const [columns] = useState(new FromData({ formRef }).data)
+  const [showTable, setShowTable] = useState(true)
+  const [columns] = useState(new FromData({ formRef, sortChange }).data)
+
+  function sortChange(value) {
+    setShowTable(!value)
+  }
 
   return (
     <div>
@@ -23,6 +27,7 @@ const View = (props) => {
           formRef.current = item
         }}
       />
+      {showTable && <AddGoodsList />}
       <Button htmlType="submit" form="integralDetails">
         提交
       </Button>

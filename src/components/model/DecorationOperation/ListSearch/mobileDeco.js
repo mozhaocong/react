@@ -4,6 +4,7 @@ const { useRequest } = HtSearch
 import { Table } from 'antd'
 import { serialNumber } from '@/utils/model/public/common'
 import { mobileDecoList } from '@/api/admin/system'
+import { isObject } from '@/utils'
 
 const searchData = [
   {
@@ -51,7 +52,14 @@ const View = (props) => {
   const [dataSource, setDataSource] = useState([])
   const [columns] = useState(new TableData({ getSerialNumberData }).data)
   const [searchColumns] = useState(searchData)
-  const [checked, setChecked] = useState(props.checked)
+  const [checked, setChecked] = useState(getChecked())
+  function getChecked() {
+    if (isObject(props.checked)) {
+      return props.checked[rowKey]
+    } else {
+      return props.checked || ''
+    }
+  }
 
   useEffect(() => {
     run()

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd'
 import { getCateTree } from '@/api/admin/goods'
+import { isObject } from '@/utils'
 
 class TableData {
   constructor() {
@@ -13,10 +14,16 @@ const rowKey = 'categoryId'
 const View = (props) => {
   const [dataSource, setDataSource] = useState([])
   const [columns] = useState(new TableData({}).data)
-  const [checked, setChecked] = useState(props.checked)
   const [loading, setLoading] = useState(false)
   const [upData, setUpData] = useState(true)
-
+  const [checked, setChecked] = useState(getChecked())
+  function getChecked() {
+    if (isObject(props.checked)) {
+      return props.checked[rowKey]
+    } else {
+      return props.checked || ''
+    }
+  }
   useEffect(() => {
     setLoading(true)
     getCateTree({ pId: 0, grade: 3 }).then((data) => {

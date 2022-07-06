@@ -50,7 +50,7 @@ export class FromData {
         labelCol: { span: 0 },
         wrapperCol: { span: 24 },
         col: 24,
-        name: 'null5',
+        name: 'decorationOperation',
         component() {
           return <DecorationOperation labelCol={8} wrapperCol={8} />
         }

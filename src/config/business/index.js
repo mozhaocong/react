@@ -1,8 +1,10 @@
 import { forEach, keys } from 'ramda'
 import integral from './integral'
+import gather from './gather'
 
 export const businessOptObject = {
   ...integral,
+  ...gather,
   baseYesNoStatus: {
     0: '否',
     1: '是'

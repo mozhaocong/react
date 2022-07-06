@@ -86,6 +86,7 @@ export const linkMapData = (item = {}) => {
   } else if (item.type === 'seckill') {
     return val.seckillName
   }
+  return ''
 }
 
 export const getLinkName = (item = {}) => {
@@ -106,6 +107,7 @@ export const getLinkName = (item = {}) => {
 export function getDecorationOperationData(value, key = 'decorationOperation') {
   if (isTrue(value) && isTrue(value[key])) {
     const data = value[key]
+    console.log(data)
     return {
       type: data.linkType,
       url: data.linkValue,
@@ -118,7 +120,7 @@ export function getDecorationOperationData(value, key = 'decorationOperation') {
     return {}
   }
 }
-export function setDecorationOperationData(value, key = 'decorationOperation') {
+export function setDecorationOperationData(value) {
   if (!isTrue(value)) return {}
   const data = {}
   if (isTrue(value.type)) data.linkType = value.type

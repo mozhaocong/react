@@ -4,13 +4,9 @@ const { useRequest } = HtSearch
 import { Table } from 'antd'
 import { goodsList } from '@/api/admin/goods'
 import { serialNumber } from '@/utils/model/public/common'
+import { isObject } from '@/utils'
 
-const searchData = [
-  {
-    label: '商品名称',
-    name: 'goodsName'
-  }
-]
+const searchData = [{ label: '商品名称', name: 'goodsName' }]
 
 class TableData {
   constructor(item) {
@@ -57,7 +53,15 @@ const View = (props) => {
   const [dataSource, setDataSource] = useState([])
   const [columns] = useState(new TableData({ getSerialNumberData }).data)
   const [searchColumns] = useState(searchData)
-  const [checked, setChecked] = useState(props.checked)
+  const [checked, setChecked] = useState(getChecked())
+
+  function getChecked() {
+    if (isObject(props.checked)) {
+      return props.checked[rowKey] || ''
+    } else {
+      return props.checked || ''
+    }
+  }
 
   useEffect(() => {
     run()

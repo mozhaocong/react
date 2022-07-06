@@ -1,6 +1,8 @@
 import layout from '@/layout/index.js'
 import Integral from '@/view/integral/index.js'
-import Details from '@/view/integral/details/index.js'
+import IntegralDetails from '@/view/integral/details/index.js'
+import Gather from '@/view/gather/index.js'
+import GatherDetails from '@/view/gather/details/index.js'
 const routes: any = [
   {
     path: '/',
@@ -12,7 +14,15 @@ const routes: any = [
       },
       {
         path: 'integral/details',
-        component: Details
+        component: IntegralDetails
+      },
+      {
+        path: 'gather',
+        component: Gather
+      },
+      {
+        path: 'gather/details',
+        component: GatherDetails
       }
     ]
   }

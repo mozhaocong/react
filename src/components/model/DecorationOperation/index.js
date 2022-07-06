@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
 import { Button, Col, Input, Row } from 'antd'
 import Modal from './modal.js'
-import { isTrue, arrayGetData } from '@/utils'
+import { isTrue, arrayGetData, isObject } from '@/utils'
 import { HtSelect } from '@/components'
 import {
+  decorationOperationValidator,
+  getDecorationOperationData,
+  getLinkName,
   inputEnter,
   linkMapData,
   modalList,
   noInput,
-  selectOptions
+  selectOptions,
+  setDecorationOperationData
 } from './utils'
 
-export default class decorationOperation extends Component {
+class decorationOperation extends Component {
   constructor(props) {
     super(props)
   }
@@ -46,7 +50,7 @@ export default class decorationOperation extends Component {
     this.setState({ modalView: false })
   }
 
-  seleSku = (value) => {
+  onOk = (value) => {
     this.propsChange({
       linkType: this.getLinkType,
       linkValue: linkMapData({
@@ -77,6 +81,14 @@ export default class decorationOperation extends Component {
   get labelCol() {
     const { labelCol } = this.props
     return labelCol ?? 3
+  }
+
+  get modalValue() {
+    if (isObject(this?.props?.value)) {
+      return this.props.value?.linkInfo
+    } else {
+      return {}
+    }
   }
 
   getInput() {
@@ -147,7 +159,6 @@ export default class decorationOperation extends Component {
     const linkType = this.getLinkType
     return (
       <Row
-        gutter={[0, 16]}
         style={{
           maxHeight: '80vh',
           overflow: 'auto',
@@ -177,7 +188,8 @@ export default class decorationOperation extends Component {
         {modalView && (
           <Modal
             link_type={linkType}
-            seleSku={this.seleSku}
+            value={this.modalValue}
+            onOk={this.onOk}
             onCancel={this.sldHandleLinkCancel}
             client={'mobile'}
           />
@@ -186,3 +198,8 @@ export default class decorationOperation extends Component {
     )
   }
 }
+export { decorationOperation as default }
+decorationOperation.decorationOperationValidator = decorationOperationValidator
+decorationOperation.getLinkName = getLinkName
+decorationOperation.getDecorationOperationData = getDecorationOperationData
+decorationOperation.setDecorationOperationData = setDecorationOperationData
