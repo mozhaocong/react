@@ -1,11 +1,12 @@
 import { oauthToken } from '@/api/admin/oauth/index.js'
 import axios from 'axios'
-import { isTrue } from '@/utils'
-
+import { EventBus } from '@/utils'
+let initRefreshToken = false
+const eventBus = new EventBus()
 export async function resAsyncSuccess(response: ObjectMap) {
   switch (response.data.state) {
     case 401:
-      const item = await refreshToken()
+      const item = await EventBusRefreshToken()
       if (item) {
         const data = await axios(response.config)
         return data
@@ -15,6 +16,26 @@ export async function resAsyncSuccess(response: ObjectMap) {
   return response
 }
 
+// 节流，多个接口同时token过期，就通过队列回调信息更新token
+async function EventBusRefreshToken() {
+  if (initRefreshToken) {
+    return new Promise((resolve) => {
+      const uuid = eventBus.on('refreshToken', callback)
+      function callback(value: any) {
+        eventBus.remove('refreshToken', uuid)
+        resolve(value)
+      }
+    })
+  } else {
+    initRefreshToken = true
+    const data = await refreshToken()
+    eventBus.emit('refreshToken', data)
+    initRefreshToken = false
+    return data
+  }
+}
+
+// 更新token
 async function refreshToken() {
   const token = localStorage.getItem('sld_refresh_token')
   if (!token) return false
@@ -28,24 +49,4 @@ async function refreshToken() {
     return true
   }
   return false
-}
-
-const initRefreshToken = false
-const list = []
-function testList() {
-  return new Promise((resolve) => {
-    resolve(true)
-  })
-}
-
-async function testListRefreshToken() {
-  if (initRefreshToken) {
-    return new Promise((resolve) => {
-      function callback(value: any) {
-        resolve(value)
-      }
-    })
-  } else {
-    return await refreshToken()
-  }
 }

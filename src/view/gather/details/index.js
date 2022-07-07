@@ -27,7 +27,8 @@ const View = (props) => {
           formRef.current = item
         }}
       />
-      {showTable && <AddGoodsList />}
+      {/*{showTable && <AddGoodsList />}*/}
+      <AddGoodsList />
       <Button htmlType="submit" form="integralDetails">
         提交
       </Button>

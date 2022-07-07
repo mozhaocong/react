@@ -1,4 +1,4 @@
-import { throttle, debounce } from './model/public/common'
+import { throttle, debounce, EventBus } from './model/public/common'
 import {
   ArrayKeyToMap,
   ArrayKeyToObject,
@@ -54,5 +54,6 @@ export {
   messageWarning,
   mockDataSource,
   getToken,
-  useStateClassOperate
+  useStateClassOperate,
+  EventBus
 }

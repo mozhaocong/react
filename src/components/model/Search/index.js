@@ -63,7 +63,15 @@ const HtSearch = (props) => {
           }
         }}
       />
-      <div style={{ height: '39px', display: 'flex', alignItems: 'center' }}>
+      <div
+        style={{
+          height: '39px',
+          display: 'flex',
+          alignItems: 'center',
+          width: '200px',
+          justifyContent: 'flex-end'
+        }}
+      >
         <Button
           type="primary"
           loading={props.loading ?? false}
