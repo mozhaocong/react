@@ -15,14 +15,20 @@ class TableData {
   constructor(item) {
     this.data = [
       {
-        title: '商品名称',
+        title: '商品图片',
         dataIndex: 'mainImage',
         align: 'center',
         render: (text) => {
-          return <Image style={{ width: '80px', height: '80px' }} url={text} />
+          return (
+            <Image
+              style={{ width: '80px', height: '80px', margin: 'auto' }}
+              url={text}
+            />
+          )
         }
       },
-      { title: '商品状态', dataIndex: 'goodsName', align: 'center' },
+      { title: '商品名称', dataIndex: 'goodsName', align: 'center' },
+      { title: '商品状态', dataIndex: 'stateValue', align: 'center' },
       { title: '最低价', dataIndex: 'goodsPrice', align: 'center' }
     ]
   }
@@ -34,7 +40,8 @@ const View = (props) => {
   const { run, Pagination, loading } = useRequest(goodsList, {
     onSuccess(item) {
       setDataSource(item?.data?.list || [])
-    }
+    },
+    defaultParams: { state: 2 }
   })
 
   const [dataSource, setDataSource] = useState([])

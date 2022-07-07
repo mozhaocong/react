@@ -4,7 +4,7 @@ import { useState } from 'react'
 import AddGoods from '../addGoods'
 import { clone } from 'ramda'
 import { TableData } from './utils'
-import { mockDataSource } from '@/utils'
+import { useStateClassOperate } from '@/utils'
 
 const testData = [
   {
@@ -3545,68 +3545,68 @@ const testData = [
   }
 ]
 
-function useClassOperate(data) {
-  const [upData, setUpData] = useState()
-  useEffect(() => {
-    data()
-  }, [upData])
-  function setFun() {
-    setUpData(new Date().getTime())
-  }
-  return {
-    setFun
-  }
-}
-
 const View = (props) => {
-  const [columns] = useState(new TableData({ rowOperate }).data)
+  const { setFun } = useStateClassOperate(rowOperate)
+  const [columns] = useState(new TableData({ setFun }).data)
   const [showAddGoods, setShowAddGoods] = useState(false)
-  const [dataSource, setDataSource] = useState(testData || [])
-  const [selectedRows, setSelectedRows] = useState(props.selectedRows || {})
-  const [pagination, setPagination] = useState({
-    size: 'small',
-    showSizeChanger: true,
-    showQuickJumper: true,
-    current: 1,
-    pageSize: 10
-  })
-  const [selectedRowKeys, setSelectedRowKeys] = useState(
-    props.selectedRowKeys || []
-  )
+  const [dataSource, setDataSource] = useState([])
+  const [selectedRows, setSelectedRows] = useState({})
+  const [selectedRowKeys, setSelectedRowKeys] = useState([])
 
-  const [update, setUpdate] = useState('')
+  useEffect(() => {
+    const data = props.value || testData
+    const selectedRowKeys = []
+    const selectedRows = {}
+    data.forEach((res) => {
+      selectedRowKeys.push(res.goodsId)
+      selectedRows[res.goodsId] = res
+    })
+    initSelectedRowData({ selectedRowKeys, selectedRows })
+  }, [])
+
   function addGoodsOnOk(value) {
     initSelectedRowData(value)
   }
-
-  useEffect(() => {
-    console.log('pagination', pagination)
-  }, [update])
-
-  function test1() {
-    console.log(pagination)
-  }
-
-  const { setFun } = useClassOperate(test1)
 
   function initSelectedRowData(value) {
     setSelectedRowKeys(clone(value.selectedRowKeys))
     const data = clone(value.selectedRows)
     const list = []
     const objectData = {}
-    value.selectedRowKeys.forEach((res) => {
-      list.push(data[res])
+    const dataLength = value.selectedRowKeys.length
+    value.selectedRowKeys.forEach((res, index) => {
+      list.push({ ...data[res], index: index + 1, dataLength })
       objectData[res] = data[res]
     })
     setSelectedRows(clone(objectData))
     setDataSource(clone(list))
   }
 
-  function rowOperate(type, index) {
-    // console.log(new Date().getTime())
-    // setUpdate(new Date().getTime())
-    // console.log('pagination', pagination)
-    setFun()
+  function rowOperate(type, record) {
+    const index = record.index
+    const selectedRowKeys = dataSource.map((item) => item.goodsId)
+    let data = ''
+    switch (type) {
+      case 'top':
+        data = selectedRowKeys[index - 1]
+        selectedRowKeys.splice(index - 1, 1)
+        selectedRowKeys.unshift(data)
+        break
+      case 'up':
+        data = selectedRowKeys[index - 2]
+        selectedRowKeys[index - 2] = selectedRowKeys[index - 1]
+        selectedRowKeys[index - 1] = data
+        break
+      case 'down':
+        data = selectedRowKeys[index]
+        selectedRowKeys[index] = selectedRowKeys[index - 1]
+        selectedRowKeys[index - 1] = data
+        break
+      case 'delete':
+        selectedRowKeys.splice(index - 1, 1)
+        break
+    }
+    initSelectedRowData({ selectedRowKeys, selectedRows })
   }
 
   return (
@@ -3626,11 +3626,15 @@ const View = (props) => {
       <Table
         columns={columns}
         dataSource={dataSource}
-        pagination={pagination}
-        onChange={(pagination) => {
-          setPagination(pagination)
+        pagination={{
+          size: 'small',
+          showSizeChanger: true,
+          showQuickJumper: true,
+          current: 1,
+          pageSize: 10
         }}
         rowKey="goodsId"
+        bordered
       />
       {showAddGoods && (
         <AddGoods

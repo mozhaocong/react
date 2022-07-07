@@ -9,14 +9,14 @@ import { isObject } from '@/utils'
 const searchData = [{ label: '商品名称', name: 'goodsName' }]
 
 class TableData {
-  constructor(item) {
+  constructor() {
     this.data = [
       {
         title: '序号',
         dataIndex: 'name',
         align: 'center',
         render: (text, record, index) => {
-          return serialNumber({ index }, item.getSerialNumberData())
+          return serialNumber({ index }, record.paginationData)
         }
       },
       {
@@ -35,23 +35,21 @@ class TableData {
 }
 
 const rowKey = 'goodsId'
-let paginationData = {
-  pageSize: '',
-  current: ''
-}
+
 const View = (props) => {
   const { run, Pagination, loading } = useRequest(goodsList, {
     onSuccess(item) {
-      paginationData = item?.data?.pagination
-      setDataSource(item?.data?.list || [])
+      let data = item?.data?.list || []
+      data = data.map((item) => {
+        item.paginationData = item?.data?.pagination || {}
+        return item
+      })
+      setDataSource(data)
     }
   })
 
-  function getSerialNumberData() {
-    return paginationData
-  }
   const [dataSource, setDataSource] = useState([])
-  const [columns] = useState(new TableData({ getSerialNumberData }).data)
+  const [columns] = useState(new TableData().data)
   const [searchColumns] = useState(searchData)
   const [checked, setChecked] = useState(getChecked())
 

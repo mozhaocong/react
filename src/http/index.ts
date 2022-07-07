@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { setConfigHeaders } from '@/http/request'
-import { resUesCode } from '@/http/response'
+import { resAsyncSuccess } from '@/http/response'
 import { isString, messageError } from '@/utils'
 
 export function axiosInit() {
@@ -32,8 +32,8 @@ export function axiosInit() {
         }
       }
       config.headers = {
-        ...setConfigHeaders(),
-        ...config.headers
+        ...config.headers,
+        ...setConfigHeaders()
         // 'Content-Type': 'Content-Type: application/x-www-form-urlencoded',
       }
       return config
@@ -44,10 +44,10 @@ export function axiosInit() {
   )
 
   axios.interceptors.response.use(
-    (response) => {
+    async (response) => {
       if (response.status == 200) {
-        resUesCode(response.data)
-        return Promise.resolve(response)
+        const data = await resAsyncSuccess(response)
+        return Promise.resolve(data)
       } else {
         return Promise.reject(response)
       }

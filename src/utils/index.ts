@@ -29,6 +29,7 @@ import {
 import { mockDataSource } from './model/mock/index.js'
 
 import { getToken } from './model/admin/utils.js'
+import { useStateClassOperate } from './model/reactHook/index.js'
 export {
   arrayGetData,
   throttle,
@@ -52,5 +53,6 @@ export {
   messageSuccess,
   messageWarning,
   mockDataSource,
-  getToken
+  getToken,
+  useStateClassOperate
 }
