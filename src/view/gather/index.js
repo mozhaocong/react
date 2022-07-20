@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SearchData, TableData } from './utils'
 import { Table } from 'antd'
 import { mockDataSource } from '@/utils'
 import { useNavigate } from 'react-router-dom'
 import { HtSearch } from '@/components'
-import { getMemberPointQuery } from '@/api/admin/member'
+import { getPromotionCollectionsList } from '@/api/admin/promotion'
 const { useRequest } = HtSearch
 
 const ViewTest = (props) => {
@@ -15,18 +15,23 @@ const ViewTest = (props) => {
   const [columns] = useState(new TableData({ showClick, editClick }).data)
   const [searchColumns] = useState(new SearchData().data)
 
-  const { run, Pagination, loading } = useRequest(getMemberPointQuery, {
+  const { run, Pagination, loading } = useRequest(getPromotionCollectionsList, {
     onSuccess(item) {
+      console.log(item?.data?.list)
       setDataSource(item?.data?.list || [])
     }
   })
   function showClick(item) {
     console.log(item)
   }
-  function editClick() {
-    navigate('details')
+  function editClick(res, type) {
+    const collectionId = res.collectionId
+    navigate(`/gather/details?collectionId=${collectionId}&type=${type}`)
   }
 
+  useEffect(() => {
+    run()
+  }, [])
   return (
     <div>
       <HtSearch

@@ -41,7 +41,7 @@ const View = (props) => {
     onSuccess(item) {
       setDataSource(item?.data?.list || [])
     },
-    defaultParams: { state: 2 }
+    defaultParams: { state: 2, idsNotIn: props.idsNotIn || '' }
   })
 
   const [dataSource, setDataSource] = useState([])

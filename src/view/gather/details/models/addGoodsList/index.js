@@ -4,7 +4,7 @@ import { useState } from 'react'
 import AddGoods from '../addGoods'
 import { clone } from 'ramda'
 import { TableData } from './utils'
-import { useStateClassOperate } from '@/utils'
+import { deepClone, isTrue, useStateClassOperate } from '@/utils'
 
 const View = (props) => {
   const { setFun } = useStateClassOperate(rowOperate)
@@ -15,21 +15,41 @@ const View = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
 
   useEffect(() => {
-    const data = props.value || []
-    const selectedRowKeys = []
-    const selectedRows = {}
-    data.forEach((res) => {
-      selectedRowKeys.push(res.goodsId)
-      selectedRows[res.goodsId] = res
+    if (props.onChange) {
+      props.onChange({ selectedRowKeys, selectedRows })
+    }
+  }, [selectedRowKeys, selectedRows])
+
+  useEffect(() => {
+    const propsSelectedRowKeys = props.value?.selectedRowKeys || []
+    if (
+      JSON.stringify(selectedRowKeys) === JSON.stringify(propsSelectedRowKeys)
+    ) {
+      return
+    }
+    setSelectedRows(deepClone(props.value?.selectedRows || {}))
+    setSelectedRowKeys(deepClone(props.value?.selectedRowKeys || []))
+    initSelectedRowData({
+      selectedRowKeys: props.value?.selectedRowKeys,
+      selectedRows: props.value?.selectedRows
     })
-    initSelectedRowData({ selectedRowKeys, selectedRows })
-  }, [])
+  }, [props.value])
+
+  // useEffect(() => {
+  //   const selectedRows = {}
+  //   data.forEach((res) => {
+  //     selectedRowKeys.push(res.goodsId)
+  //     selectedRows[res.goodsId] = res
+  //   })
+  //   initSelectedRowData({ selectedRowKeys, selectedRows })
+  // }, [])
 
   function addGoodsOnOk(value) {
     initSelectedRowData(value)
   }
 
   function initSelectedRowData(value) {
+    if (!isTrue(value.selectedRowKeys || [])) return
     setSelectedRowKeys(clone(value.selectedRowKeys))
     const data = clone(value.selectedRows)
     const list = []
@@ -98,6 +118,7 @@ const View = (props) => {
       {showAddGoods && (
         <AddGoods
           onOk={addGoodsOnOk}
+          idsNotIn={selectedRowKeys.join(',')}
           selectedRows={selectedRows}
           selectedRowKeys={selectedRowKeys}
           onCancel={setShowAddGoods}
