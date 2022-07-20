@@ -108,7 +108,7 @@ class decorationOperation extends Component {
         <Col span={this.labelCol} className="ant-form-item-label">
           <label>
             <span style={{ color: 'red' }}>*</span>
-            {typeName[0].name}
+            {typeName[0]?.name}
           </label>
         </Col>
         <Col span={this.wrapperCol}>

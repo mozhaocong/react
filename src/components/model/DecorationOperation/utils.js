@@ -107,7 +107,6 @@ export const getLinkName = (item = {}) => {
 export function getDecorationOperationData(value, key = 'decorationOperation') {
   if (isTrue(value) && isTrue(value[key])) {
     const data = value[key]
-    console.log(data)
     return {
       type: data.linkType,
       url: data.linkValue,

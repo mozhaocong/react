@@ -85,7 +85,8 @@ export class SearchData {
 }
 
 export const data = {
-  address: '积分测试',
+  address:
+    'http://oss-dev.htwig.com/images/admin/setting/202207/vyGSYFYVNDh2kz8YrTY.jpg',
   maxFrequency: 1,
   show: 1,
   updateUser: 'admin',

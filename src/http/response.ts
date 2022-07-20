@@ -39,7 +39,7 @@ async function EventBusRefreshToken() {
 async function refreshToken() {
   const token = localStorage.getItem('sld_refresh_token')
   if (!token) return false
-  const res = await oauthToken(
+  const res: any = await oauthToken(
     { refreshToken: token },
     { 'Content-Type': 'application/x-www-form-urlencoded' }
   )

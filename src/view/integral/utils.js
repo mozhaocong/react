@@ -27,8 +27,17 @@ export class TableData {
         title: '操作',
         dataIndex: 'address7',
         align: 'center',
-        render() {
-          return <Button type="link">编辑</Button>
+        render(text, res) {
+          return (
+            <Button
+              type="link"
+              onClick={() => {
+                item.editClick(res)
+              }}
+            >
+              编辑
+            </Button>
+          )
         }
       }
     ]

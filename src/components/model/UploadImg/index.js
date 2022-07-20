@@ -3,8 +3,9 @@ import { Icon, Upload } from 'antd'
 import PreviewImg from './model/PreviewImg'
 import { getToken, isTrue } from '@/utils/index.ts'
 import { apiUrl } from '@/api'
+import { getUploadImgData, setUploadImgData } from './model/utils'
 
-export default class UploadImg extends Component {
+class UploadImg extends Component {
   state = {
     fileList: [],
     preview_img: '', //预览的图片
@@ -145,3 +146,6 @@ export default class UploadImg extends Component {
     )
   }
 }
+export { UploadImg as default }
+UploadImg.getUploadImgData = getUploadImgData
+UploadImg.setUploadImgData = setUploadImgData

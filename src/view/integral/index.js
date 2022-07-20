@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { TableData } from './utils'
 import { Table } from 'antd'
-import { mockDataSource } from '@/utils'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { goodsList } from '@/api/admin/goods'
 import { HtSearch } from '@/components'
 import { getMemberPointQuery } from '@/api/admin/member'
 const { useRequest } = HtSearch
@@ -21,8 +19,10 @@ const ViewTest = (props) => {
   function showClick(item) {
     console.log(item)
   }
-  function editClick() {
-    navigate('details')
+  function editClick(item) {
+    console.log(item)
+    const id = item.id
+    navigate(`/integral/details?id=${id}`)
   }
   useEffect(() => {
     run()

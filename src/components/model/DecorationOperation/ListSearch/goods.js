@@ -16,6 +16,7 @@ class TableData {
         dataIndex: 'name',
         align: 'center',
         render: (text, record, index) => {
+          console.log(record.paginationData)
           return serialNumber({ index }, record.paginationData)
         }
       },
@@ -40,9 +41,9 @@ const View = (props) => {
   const { run, Pagination, loading } = useRequest(goodsList, {
     onSuccess(item) {
       let data = item?.data?.list || []
-      data = data.map((item) => {
-        item.paginationData = item?.data?.pagination || {}
-        return item
+      data = data.map((res) => {
+        res.paginationData = item?.data?.pagination || {}
+        return res
       })
       setDataSource(data)
     }
