@@ -3,5 +3,6 @@ export function sldComLanguage(name) {
 }
 
 export function getToken() {
-  return window.localStorage.getItem('authorization') || ''
+  const token = window.localStorage.getItem('sld_token')
+  return token ?? ''
 }

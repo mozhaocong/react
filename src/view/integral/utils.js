@@ -1,34 +1,34 @@
 import { Button, Switch } from 'antd'
 import React from 'react'
+export class SearchData {
+  constructor() {
+    this.data = []
+  }
+}
 export class TableData {
   constructor(item) {
     this.data = [
-      { title: '积分行为', dataIndex: 'name', align: 'center' },
-      { title: '积分价值', dataIndex: 'age', align: 'center' },
-      { title: '行为名称', dataIndex: 'address1', align: 'center' },
-      { title: '图标', dataIndex: 'address2', align: 'center' },
-      { title: '排序', dataIndex: 'address3', align: 'center' },
+      { title: '积分行为', dataIndex: 'null', align: 'center' },
+      { title: '积分价值', dataIndex: 'pointValue', align: 'center' },
+      { title: '行为名称', dataIndex: 'behaviorName', align: 'center' },
+      { title: '图标', dataIndex: 'address', align: 'center' },
+      { title: '排序', dataIndex: 'sort', align: 'center' },
       {
         title: '是否显示',
-        dataIndex: 'address4',
+        dataIndex: 'show',
         align: 'center',
-        render({ text }) {
-          console.log(text)
-          return <Switch onChange={item.showClick} />
+        render(res) {
+          return <Switch onChange={item.showClick} checked={!!res} />
         }
       },
-      { title: '编辑时间', dataIndex: 'address5', align: 'center' },
-      { title: '编辑人员', dataIndex: 'address6', align: 'center' },
+      { title: '编辑时间', dataIndex: 'updateTime', align: 'center' },
+      { title: '编辑人员', dataIndex: 'updateUser', align: 'center' },
       {
         title: '操作',
         dataIndex: 'address7',
         align: 'center',
-        render({}) {
-          return (
-            <Button type="link" onClick={item.editClick}>
-              编辑
-            </Button>
-          )
+        render() {
+          return <Button type="link">编辑</Button>
         }
       }
     ]

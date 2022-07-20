@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from 'react'
 import routes from '@/routes'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -28,9 +29,12 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>{setRouter()}</Routes>
-    </BrowserRouter>
+    <div>
+      {/*@ts-ignore*/}
+      <BrowserRouter basename={window.__MICRO_APP_BASE_ROUTE__ || '/'}>
+        <Routes>{setRouter()}</Routes>
+      </BrowserRouter>
+    </div>
   )
 }
 

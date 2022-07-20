@@ -6,9 +6,7 @@ const { getDecorationOperationData } = DecorationOperation
 
 const View = (props) => {
   function handleSubmit(item) {
-    console.log(item)
     const value = getDecorationOperationData(item)
-    console.log(value)
   }
   const formRef = createRef()
   const [columns] = useState(new FromData({ formRef }).data)

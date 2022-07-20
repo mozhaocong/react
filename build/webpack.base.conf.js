@@ -21,6 +21,9 @@ module.exports = {
   devServer: {
     port: 3000,
     historyApiFallback: true, // 解决BrowserRouter路由跳转之后刷新浏览器按钮报404的情况
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
   },
   target: 'web',
   module: {

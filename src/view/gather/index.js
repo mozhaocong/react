@@ -4,7 +4,7 @@ import { Table } from 'antd'
 import { mockDataSource } from '@/utils'
 import { useNavigate } from 'react-router-dom'
 import { HtSearch } from '@/components'
-import { goodsList } from '@/api/admin/goods'
+import { getMemberPointQuery } from '@/api/admin/member'
 const { useRequest } = HtSearch
 
 const ViewTest = (props) => {
@@ -15,7 +15,7 @@ const ViewTest = (props) => {
   const [columns] = useState(new TableData({ showClick, editClick }).data)
   const [searchColumns] = useState(new SearchData().data)
 
-  const { run, Pagination, loading } = useRequest(goodsList, {
+  const { run, Pagination, loading } = useRequest(getMemberPointQuery, {
     onSuccess(item) {
       setDataSource(item?.data?.list || [])
     }

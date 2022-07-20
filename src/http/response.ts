@@ -44,7 +44,7 @@ async function refreshToken() {
     { 'Content-Type': 'application/x-www-form-urlencoded' }
   )
   if (res?.state * 1 === 200) {
-    localStorage.setItem('authorization', `Bearer ${res?.data?.access_token}`)
+    localStorage.setItem('sld_token', `${res?.data?.access_token}`)
     localStorage.setItem('sld_refresh_token', `${res?.data?.refresh_token}`)
     return true
   }

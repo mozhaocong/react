@@ -3,7 +3,7 @@ import { HtForm } from '@/components'
 import { Button } from 'antd'
 
 import SearchPagination from './model/pagination.js'
-import { useRequest } from './hooks/index.js'
+import { useRequest } from './hooks'
 
 const HtSearch = (props) => {
   const [formRef, setFormRef] = useState({})
