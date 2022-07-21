@@ -52,11 +52,15 @@ const View = () => {
         setData[item.name] = data[item.name]
       }
     })
-    formRef.current.setFieldsValue({
+    const formRefData = {
       ...setData,
       address,
       decorationOperation
-    })
+    }
+    formRef.current.setFieldsValue(formRefData)
+    setTimeout(() => {
+      formRef.current.setFieldsValue(formRefData)
+    }, 10)
   }
   return (
     <div>
