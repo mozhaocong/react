@@ -33,7 +33,6 @@ const View = () => {
     setLoading(true)
     const data = await postMemberPointUpdate(params)
     setLoading(false)
-    console.log(data)
     if (data.state == 200) {
       messageSuccess(data.msg)
       navigate(-1)

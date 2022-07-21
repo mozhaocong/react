@@ -5,7 +5,8 @@ import { Button } from 'antd'
 import AddGoodsList from './models/addGoodsList'
 import {
   getPromotionCollectionsDetail,
-  getPromotionCollectionsGoodsSequence
+  getPromotionCollectionsGoodsSequence,
+  postPromotionCollectionsUpdate
 } from '@/api/admin/promotion'
 import { useSearchParams } from 'react-router-dom'
 import { isTrue, useStateClassOperate } from '@/uitls'
@@ -13,55 +14,80 @@ const { setFormDefValue } = HtForm
 
 const { getUploadImgData, setUploadImgData } = UploadImg
 
-const View = (props) => {
-  function handleSubmit(item) {
-    console.log(item)
-    console.log(value)
-  }
+const View = () => {
   const [formRef, setFormRef] = useState({})
   const { setFun } = useStateClassOperate(sortChange)
-
   const [searchParams] = useSearchParams()
   const [type, setType] = useState()
+  const [sortType, setSortType] = useState(0)
   const [columns] = useState(new FromData({ formRef, setFun }).data)
   const [goodsList, setGoodsList] = useState({})
+  const [record, setRecord] = useState({})
+  const [loading, setLoading] = useState(false)
 
   function sortChange() {
     goodsSequenceSort()
   }
 
-  async function init() {
+  async function init(formRef) {
     const collectionId = searchParams.get('collectionId')
+    if (!isTrue(collectionId)) return
     setType(searchParams.get('type'))
     const res = await getPromotionCollectionsDetail({ collectionId })
     const data = res?.data || {}
+    setRecord(data)
+    setSortType(data.sort || 0)
     const banner = setUploadImgData(data.banner, data.bannerURL)
     const rowData = setFormDefValue(columns, { ...data, banner })
-    console.log(rowData, formRef)
+    initGoodsList(data?.collectionGoodsVOs)
     formRef.setFieldsValue({ ...rowData })
   }
 
+  function initGoodsList(list = []) {
+    if (!isTrue(list)) return
+    const keyList = []
+    const keyObject = {}
+    list.forEach((item) => {
+      keyList.push(item.goodsId)
+      keyObject[item.goodsId] = item
+    })
+    setGoodsList({
+      selectedRowKeys: keyList,
+      selectedRows: keyObject
+    })
+  }
+
   async function goodsSequenceSort() {
-    console.log('goodsList', goodsList)
     const { selectedRowKeys = [] } = goodsList
-    if (!isTrue(selectedRowKeys)) return
-    const goodsIds = selectedRowKeys.join(',')
     const sort = formRef.getFieldValue('sort')
+    setSortType(sort)
+    if (!isTrue(selectedRowKeys) || !sort) return
+    const goodsIds = selectedRowKeys.join(',')
     const data = await getPromotionCollectionsGoodsSequence({ goodsIds, sort })
     if (![200].includes(data.state)) return
     const item = data?.data || []
-    console.log('item', item)
-    const selectedRowKeysData = []
-    const selectedRowsData = {}
-    item.forEach((item) => {
-      selectedRowKeysData.push(item.goodsId)
-      selectedRowsData[item.goodsId] = item
+    initGoodsList(item)
+  }
+
+  async function handleSubmit(item) {
+    console.log(item)
+    const banner = getUploadImgData(item.banner, {
+      path: 'banner',
+      url: 'bannerURL'
     })
-    console.log(selectedRowKeysData)
-    setGoodsList({
-      selectedRowKeys: selectedRowKeysData,
-      selectedRows: selectedRowsData
-    })
+    console.log(goodsList)
+    let collectionGoodsVOs = []
+    const { selectedRowKeys = [], selectedRows = [] } = goodsList
+    if (isTrue(selectedRowKeys)) {
+      collectionGoodsVOs = selectedRowKeys.map((item) => {
+        return selectedRows[item]
+      })
+    }
+    const params = { ...record, ...item, ...banner, collectionGoodsVOs }
+    setLoading(true)
+    const res = await postPromotionCollectionsUpdate(params)
+    setLoading(false)
+    console.log(res)
   }
 
   // useEffect(() => {}, [])
@@ -72,21 +98,21 @@ const View = (props) => {
         fId="integralDetails"
         columns={columns}
         propsForm={(item) => {
-          console.log()
+          console.log(item)
           setFormRef(item)
-          setTimeout(() => {
-            init()
-          }, 10)
+          init(item)
         }}
       />
       {/*{showTable && <AddGoodsList />}*/}
       <AddGoodsList
         value={goodsList}
+        sortType={sortType}
+        type={type}
         onChange={(item) => {
           setGoodsList(item)
         }}
       />
-      <Button htmlType="submit" form="integralDetails">
+      <Button loading={loading} htmlType="submit" form="integralDetails">
         提交
       </Button>
     </div>

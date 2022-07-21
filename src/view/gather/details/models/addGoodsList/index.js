@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Button, Table } from 'antd'
 import { useState } from 'react'
 import AddGoods from '../addGoods'
@@ -8,7 +8,7 @@ import { deepClone, isTrue, useStateClassOperate } from '@/uitls'
 
 const View = (props) => {
   const { setFun } = useStateClassOperate(rowOperate)
-  const [columns] = useState(new TableData({ setFun }).data)
+  const [columns] = useState(new TableData({ setFun, props }).data)
   const [showAddGoods, setShowAddGoods] = useState(false)
   const [dataSource, setDataSource] = useState([])
   const [selectedRows, setSelectedRows] = useState({})
@@ -19,6 +19,14 @@ const View = (props) => {
       props.onChange({ selectedRowKeys, selectedRows })
     }
   }, [selectedRowKeys, selectedRows])
+
+  const columnsData = useMemo(() => {
+    const data = deepClone(columns || [])
+    if (props.sortType) {
+      data.pop()
+    }
+    return data
+  }, [props.sortType])
 
   useEffect(() => {
     const propsSelectedRowKeys = props.value?.selectedRowKeys || []
@@ -105,7 +113,7 @@ const View = (props) => {
       </div>
       <div>说明：大批量修改商品排序时，建议保存后导出集合商品，然后再导入</div>
       <Table
-        columns={columns}
+        columns={columnsData}
         dataSource={dataSource}
         pagination={{
           size: 'small',

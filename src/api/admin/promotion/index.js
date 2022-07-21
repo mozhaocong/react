@@ -14,3 +14,6 @@ export function getPromotionCollectionsGoodsSequence(data = {}, options = {}) {
     options
   )
 }
+export function postPromotionCollectionsUpdate(data = {}, options = {}) {
+  return post(apiUrl + '/v3/promotion/admin/collections/update', data, options)
+}

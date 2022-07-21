@@ -16,7 +16,7 @@ module.exports = {
     filename: 'static/js/[name]_[contenthash].js',
     pathinfo: false,
     clean: true,
-    publicPath: "/",
+    publicPath: "/admin-ht-child",
   },
   devServer: {
     port: 3000,
