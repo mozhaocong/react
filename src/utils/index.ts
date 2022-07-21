@@ -57,3 +57,5 @@ export {
   useStateClassOperate,
   EventBus
 }
+
+export { filterBusinessOptObject } from './model/filter'

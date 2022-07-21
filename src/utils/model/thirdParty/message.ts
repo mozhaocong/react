@@ -5,9 +5,9 @@ import { throttle } from '@/utils'
 export function curryMessage(type: string, data: string) {
   if (type === 'error') {
     message.error(data)
-  } else if (type === 'warning ') {
+  } else if (type === 'warning') {
     message.warning(data)
-  } else if (type === 'success ') {
+  } else if (type === 'success') {
     message.success(data)
   }
 }

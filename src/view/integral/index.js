@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { TableData } from './utils'
 import { Table } from 'antd'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { HtSearch } from '@/components'
-import { getMemberPointQuery } from '@/api/admin/member'
+import { getMemberPointQuery, postMemberPointUpdate } from '@/api/admin/member'
+import { messageSuccess } from '@/utils'
 const { useRequest } = HtSearch
 
-const ViewTest = (props) => {
+const ViewTest = () => {
   let navigate = useNavigate()
-  let location = useLocation()
   const [dataSource, setDataSource] = useState()
   const [columns] = useState(new TableData({ showClick, editClick }).data)
-  const { run, loading } = useRequest(getMemberPointQuery, {
+  const { run, loading, setLoading } = useRequest(getMemberPointQuery, {
     onSuccess(item) {
       setDataSource(item?.data || [])
     }
   })
-  function showClick(item) {
-    console.log(item)
+  async function showClick(key, item) {
+    setLoading(true)
+    const data = await postMemberPointUpdate({ ...item, show: key ? 1 : 0 })
+    setLoading(false)
+    if (data.state == 200) {
+      run()
+      messageSuccess(data.msg)
+    }
   }
   function editClick(item) {
-    console.log(item)
     const id = item.id
     navigate(`/integral/details?id=${id}`)
   }

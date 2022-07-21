@@ -1,4 +1,5 @@
 import Pagination from '../model/pagination.js'
+// @ts-ignore
 import { useState } from 'react'
 import { isObject, isTrue } from '@/utils'
 const optionsDefData = {
@@ -14,7 +15,7 @@ const optionsDefData = {
   }
 }
 
-export function useRequest(request, options = {}) {
+export function useRequest(request: any, options: any = {}) {
   const [loading, setLoading] = useState(false)
   const [current, setCurrent] = useState(1)
   const [pageSize, setPageSize] = useState(1)
@@ -27,10 +28,10 @@ export function useRequest(request, options = {}) {
     const item = await request({ ...(options.defaultParams || {}), ...data })
     if (item.state == 200) {
       const optionsData = { ...optionsDefData, ...options }
-      let paginationReqData = {}
+      let paginationReqData: any = {}
       if (isTrue(optionsData.paginationReq)) {
         paginationReqData = item
-        optionsData.paginationReq.forEach((res) => {
+        optionsData.paginationReq.forEach((res: any) => {
           try {
             paginationReqData = paginationReqData[res]
           } catch (e) {
@@ -61,13 +62,15 @@ export function useRequest(request, options = {}) {
     loading,
     current,
     pageSize,
+    setLoading,
     Pagination: () =>
       Pagination({
         current,
         pageSize,
         total,
+        // @ts-ignore
         loading,
-        onChange: (item) => {
+        onChange: (item: any) => {
           const optionsData = { ...optionsDefData, ...options }
           const itemParam = {
             ...param,
@@ -76,7 +79,7 @@ export function useRequest(request, options = {}) {
           }
           run(itemParam)
         },
-        onShowSizeChange: (item) => {
+        onShowSizeChange: (item: any) => {
           const optionsData = { ...optionsDefData, ...options }
           const itemParam = {
             ...param,
