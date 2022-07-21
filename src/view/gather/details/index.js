@@ -1,5 +1,5 @@
-import React, { createRef, useEffect, useState } from 'react'
-import { HtForm } from '@/components'
+import React, { useState } from 'react'
+import { HtForm, UploadImg } from '@/components'
 import { FromData } from './utils'
 import { Button } from 'antd'
 import AddGoodsList from './models/addGoodsList'
@@ -8,7 +8,10 @@ import {
   getPromotionCollectionsGoodsSequence
 } from '@/api/admin/promotion'
 import { useSearchParams } from 'react-router-dom'
-import { isTrue, useStateClassOperate } from '@/utils'
+import { isTrue, useStateClassOperate } from '@/uitls'
+const { setFormDefValue } = HtForm
+
+const { getUploadImgData, setUploadImgData } = UploadImg
 
 const View = (props) => {
   function handleSubmit(item) {
@@ -30,8 +33,12 @@ const View = (props) => {
   async function init() {
     const collectionId = searchParams.get('collectionId')
     setType(searchParams.get('type'))
-    const data = await getPromotionCollectionsDetail({ collectionId })
-    console.log(data)
+    const res = await getPromotionCollectionsDetail({ collectionId })
+    const data = res?.data || {}
+    const banner = setUploadImgData(data.banner, data.bannerURL)
+    const rowData = setFormDefValue(columns, { ...data, banner })
+    console.log(rowData, formRef)
+    formRef.setFieldsValue({ ...rowData })
   }
 
   async function goodsSequenceSort() {
@@ -65,8 +72,11 @@ const View = (props) => {
         fId="integralDetails"
         columns={columns}
         propsForm={(item) => {
+          console.log()
           setFormRef(item)
-          init()
+          setTimeout(() => {
+            init()
+          }, 10)
         }}
       />
       {/*{showTable && <AddGoodsList />}*/}

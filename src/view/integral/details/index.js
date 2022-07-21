@@ -2,7 +2,7 @@ import React, { createRef, useState } from 'react'
 import { HtForm, DecorationOperation, UploadImg } from '@/components'
 import { FromData } from './utils'
 import { Button } from 'antd'
-import { deepClone, isTrue, messageSuccess } from '@/utils'
+import { deepClone, isTrue, messageSuccess } from '@/uitls'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { getMemberPointId, postMemberPointUpdate } from '@/api/admin/member'
 const { getDecorationOperationData, setDecorationOperationData } =

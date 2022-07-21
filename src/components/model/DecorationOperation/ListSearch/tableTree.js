@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd'
 import { getCateTree } from '@/api/admin/goods'
-import { isObject } from '@/utils'
+import { isObject } from '@/uitls'
 
 class TableData {
   constructor() {

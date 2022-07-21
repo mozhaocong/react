@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { HtSearch } from '@/components'
 const { useRequest } = HtSearch
 import { Table } from 'antd'
-import { serialNumber } from '@/utils/model/public/common'
+import { serialNumber } from '@/uitls/model/public/common'
 import { mobileDecoList } from '@/api/admin/system'
-import { isObject } from '@/utils'
+import { isObject } from '@/uitls'
 
 const searchData = [
   {

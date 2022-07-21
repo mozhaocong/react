@@ -4,7 +4,7 @@ import { useState } from 'react'
 import AddGoods from '../addGoods'
 import { clone } from 'ramda'
 import { TableData } from './utils'
-import { deepClone, isTrue, useStateClassOperate } from '@/utils'
+import { deepClone, isTrue, useStateClassOperate } from '@/uitls'
 
 const View = (props) => {
   const { setFun } = useStateClassOperate(rowOperate)

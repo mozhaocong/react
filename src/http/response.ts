@@ -1,6 +1,6 @@
 import { oauthToken } from '@/api/admin/oauth/index.js'
 import axios from 'axios'
-import { EventBus } from '@/utils'
+import { EventBus } from '@/uitls'
 let initRefreshToken = false
 const eventBus = new EventBus()
 export async function resAsyncSuccess(response: ObjectMap) {

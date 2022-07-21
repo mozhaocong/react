@@ -5,7 +5,7 @@ import {
   FormRadio,
   UploadImg
 } from '@/components'
-import { Switch } from 'antd'
+import { InputNumber, Switch } from 'antd'
 export class FromData {
   constructor(item) {
     this.data = [
@@ -13,31 +13,51 @@ export class FromData {
         label: '积分行为类型',
         name: 'behaviorType',
         component() {
-          return <FormConfig prop="integralType" />
+          return <FormConfig disabled={true} prop="integralType" />
         }
       },
-      { label: '积分价值', name: 'pointValue' },
+      {
+        label: '积分价值',
+        name: 'pointValue',
+        extra:
+          '设置下单赠送积分比例。例如10，表示10美金赠送1积分，在订单确认收货后才赠送积分，取消订单则扣掉订单增加的积分。空或者0则为不赠送积分',
+        component() {
+          return <InputNumber min={0} />
+        }
+      },
       {
         label: '单笔订单最大赠送积分',
         name: 'maxPoints',
+        extra: '限制单笔订单最大赠送积分，空或者0则为不限制',
         display() {
           // 只有购物送积分显示
           return [3].includes(
-            item.formRef?.current?.getFieldValue('integralType')
+            item.formRef?.current?.getFieldValue('behaviorType') * 1
           )
+        },
+        component() {
+          return <InputNumber min={0} />
         }
       },
       {
         label: '赠送次数上限',
         name: 'maxFrequency',
+        extra: '每日加购赠送积分的次数上限，空或0表示不限制',
         display() {
           // 加购、收藏、分享、都是增加赠送次数上限字段，可以配置每日赠送的积分次数上限
           return [5, 6, 7].includes(
-            item.formRef?.current?.getFieldValue('integralType')
+            item.formRef?.current?.getFieldValue('behaviorType') * 1
           )
+        },
+        component() {
+          return <InputNumber min={0} />
         }
       },
-      { label: '行为名称', name: 'behaviorName' },
+      {
+        label: '行为名称',
+        name: 'behaviorName',
+        extra: '设置前端显示的名称及积分记录名称'
+      },
       {
         label: '显示图标',
         name: 'address',
@@ -55,12 +75,19 @@ export class FromData {
           return <DecorationOperation labelCol={8} wrapperCol={8} />
         }
       },
-      { label: '排序', name: 'sort' },
+      {
+        label: '排序',
+        name: 'sort',
+        extra: '输入0-255，值越大越靠前',
+        component() {
+          return <InputNumber min={0} max={255} />
+        }
+      },
       {
         label: '积分上限类型',
         name: 'frequencyType',
         component() {
-          return <FormRadio prop="integralLimit" />
+          return <FormRadio disabled={true} prop="integralLimit" />
         }
       },
       {

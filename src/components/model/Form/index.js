@@ -1,5 +1,6 @@
 import React from 'react'
 import { Col, Form, Input, Row, Spin } from 'antd'
+import { setFormDefValue } from '@/components/model/Form/uitls'
 
 class HtFormComponent extends React.Component {
   componentDidMount() {
@@ -93,4 +94,7 @@ class HtFormComponent extends React.Component {
 const WrappedHorizontalLoginForm = Form.create({ name: 'htFormComponent' })(
   HtFormComponent
 )
-export default WrappedHorizontalLoginForm
+// export default WrappedHorizontalLoginForm
+
+export { WrappedHorizontalLoginForm as default }
+WrappedHorizontalLoginForm.setFormDefValue = setFormDefValue

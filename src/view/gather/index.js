@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { SearchData, TableData } from './utils'
 import { Table } from 'antd'
-import { mockDataSource } from '@/utils'
+import { mockDataSource } from '@/uitls'
 import { useNavigate } from 'react-router-dom'
 import { HtSearch } from '@/components'
 import { getPromotionCollectionsList } from '@/api/admin/promotion'

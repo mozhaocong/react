@@ -1,4 +1,4 @@
-import { isString, isTrue } from '@/utils'
+import { isString, isTrue } from '@/uitls'
 
 let uuid = 0
 export function setUploadImgData(path, url) {

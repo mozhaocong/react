@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Col, Input, Row } from 'antd'
 import Modal from './modal.js'
-import { isTrue, arrayGetData, isObject } from '@/utils'
+import { isTrue, arrayGetData, isObject } from '@/uitls'
 import { HtSelect } from '@/components'
 import {
   decorationOperationValidator,

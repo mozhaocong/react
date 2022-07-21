@@ -4,7 +4,7 @@ import { Table } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { HtSearch } from '@/components'
 import { getMemberPointQuery, postMemberPointUpdate } from '@/api/admin/member'
-import { messageSuccess } from '@/utils'
+import { messageSuccess } from '@/uitls'
 const { useRequest } = HtSearch
 
 const ViewTest = () => {

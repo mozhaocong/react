@@ -3,8 +3,8 @@ import { HtSearch, Image } from '@/components'
 const { useRequest } = HtSearch
 import { Table } from 'antd'
 import { goodsList } from '@/api/admin/goods'
-import { serialNumber } from '@/utils/model/public/common'
-import { isObject } from '@/utils'
+import { serialNumber } from '@/uitls/model/public/common'
+import { isObject } from '@/uitls'
 
 const searchData = [{ label: '商品名称', name: 'goodsName' }]
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Modal } from 'antd'
 import ListSearch from './ListSearch/index.js'
-import { isTrue } from '@/utils'
+import { isTrue } from '@/uitls'
 const { GoodsList, MobileDeco, TableTree } = ListSearch
 const View = (props) => {
   useEffect(() => {

@@ -1,6 +1,6 @@
 import Pagination from '../model/pagination.js'
 import { useState } from 'react'
-import { isObject, isTrue } from '@/utils'
+import { isObject, isTrue } from '@/uitls'
 const optionsDefData = {
   paginationReq: ['data', 'pagination'],
   paginationConfig: {

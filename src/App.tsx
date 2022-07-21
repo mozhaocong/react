@@ -3,7 +3,7 @@ import React from 'react'
 import routes from '@/routes'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Interceptor } from '@/routes/test.js'
-import { isTrue } from '@/utils'
+import { isTrue } from '@/uitls'
 const App = () => {
   function setRouter() {
     return routes.map((item: any, index: any) => {

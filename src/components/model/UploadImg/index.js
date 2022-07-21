@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Icon, Upload } from 'antd'
 import PreviewImg from './model/PreviewImg'
-import { getToken, isTrue } from '@/utils/index.ts'
+import { getToken, isTrue } from '@/uitls/index.ts'
 import { apiUrl } from '@/api'
 import { getUploadImgData, setUploadImgData } from './model/utils'
 

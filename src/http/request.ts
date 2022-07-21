@@ -1,4 +1,4 @@
-import { isTrue } from '@/utils'
+import { isTrue } from '@/uitls'
 
 export function setConfigHeaders(): ObjectMap {
   const data = window.localStorage.getItem('sld_token')

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Spin, Tree } from 'antd'
-import { isTrue } from '@/utils'
+import { isTrue } from '@/uitls'
 import { getCateTree } from '@/api/admin/goods'
 const { TreeNode } = Tree
 

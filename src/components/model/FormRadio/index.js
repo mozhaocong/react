@@ -18,7 +18,12 @@ const View = forwardRef((props, ref) => {
     setDefaultValue(e?.target?.value)
   }
   return (
-    <Radio.Group ref={ref} value={value} onChange={groupChange}>
+    <Radio.Group
+      ref={ref}
+      value={value}
+      onChange={groupChange}
+      disabled={props.disabled ?? false}
+    >
       {options.map((res) => {
         return (
           <Radio key={res.value} value={res.value}>

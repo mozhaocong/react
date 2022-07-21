@@ -1,7 +1,7 @@
 import { Button, Switch } from 'antd'
 import React from 'react'
 import { Image } from '@/components'
-import { filterBusinessOptObject } from '@/utils'
+import { filterBusinessOptObject } from '@/uitls'
 export class SearchData {
   constructor() {
     this.data = []

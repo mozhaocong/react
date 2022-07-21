@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { setConfigHeaders } from '@/http/request'
 import { resAsyncSuccess } from '@/http/response'
-import { isString, messageError } from '@/utils'
+import { isString, messageError } from '@/uitls'
 
 export function axiosInit() {
   //post请求头
